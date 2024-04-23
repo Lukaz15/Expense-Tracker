@@ -1,6 +1,11 @@
-## Version 0.2.0
-### Changes :
+## Version 0.2.1  2024-04-22
+### Changes:
 
-- Refractored code structure into different modules
-- Added checks for different scenarios to the read and write commands
-- Added some verbosity
+- **Functionality Improvements**
+  - Changed the display of the budget from the command "read" to display a remaining budget instead.
+  
+- **Usability Enhancements**
+  - Increased verbosity of log messages to improve debugging and user interaction.
+
+- **Bugfixes**
+  - Fixed several small bugs.

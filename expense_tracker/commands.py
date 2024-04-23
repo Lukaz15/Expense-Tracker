@@ -2,15 +2,11 @@ import csv
 import os
 import inspect
 import sys
-import re
-
-
-# When defining new commands, the prefix "cmd_" should be used to ensure it gets listed into the "help" command.
 
 def cmd_budget():
     while True:
         try:
-            rem_budget = float(input('> Enter your budget:  '))
+            rem_budget = float(input('> Enter your budget:  $'))
             break
         except:
             print('Please enter a valid number')
@@ -19,14 +15,17 @@ def cmd_budget():
     
 def cmd_read():
     if os.path.exists('data.csv'):
+        expenses = []
         with open('data.csv', mode='r', newline='') as file:
             reader = csv.reader(file)
             for row in reader:
-                print(f"${re.sub(r'[\[\]]', ''," - ".join(row))}")
+                expenses.append(row[0])
+                print(f"${' - '.join(row)}")
             if os.path.exists('budget.txt'):
                     with open('budget.txt', mode='r') as file:
                         for line in file:
-                            print(f"Your budget is ${line}")
+                            total_expense = float(line) - sum(float(n) for n in expenses)
+                            print(f"Your remaining budget would be of ${total_expense}")
     else:
         print('There are no saved expenses yet.')
                        
@@ -44,13 +43,13 @@ def cmd_write():
         else: break
     data = {"expenses": number,"description": description} 
     with open('data.csv', mode='a', newline='') as file:
-        writer = csv.DictWriter(file, fieldnames=data)
+        writer = csv.DictWriter(file, fieldnames=['expenses', 'description'])
         writer.writerow(data)
     print('Expenses saved successfully.')
 
 def cmd_clear():
     if os.path.exists('data.csv'):
-        confirm = input('Are you sure you want to remove all your saved data? y / n ')
+        confirm = input('> Are you sure you want to remove all your saved data? y/n ')
         match confirm:
             case "y":
                 os.remove('data.csv')
@@ -60,14 +59,14 @@ def cmd_clear():
             case _:
                 print('Please use "y" to delete data or "n" to cancel')
     else:
-        print("There's no data to clear")
+        print('There is no data to clear')
 
 
 def cmd_help():
     cmds = [cmd.replace("cmd_", "") for cmd in [name for name, obj in inspect.getmembers(sys.modules[__name__]) 
-                if inspect.isfunction(obj) and name.startswith('cmd_')]]
+                if inspect.isfunction(obj)]]
     print(", ".join(cmds))
 
 def cmd_exit():
     print('Exiting...')
-    exit()
+    sys.exit()
