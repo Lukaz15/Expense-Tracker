@@ -6,10 +6,10 @@ while True:
     match commands:
         case "exit":
             command.cmd_exit()
-        case "read":
-            command.cmd_read()
-        case "write":
-            command.cmd_write()
+        case "expenses":
+            command.cmd_expenses()
+        case "spend":
+            command.cmd_spend()
         case "budget":
             command.cmd_budget()
         case "clear":

@@ -1,11 +1,7 @@
-## Version 0.2.1  2024-04-22
+## Version 0.3.0  2024-04-22
 ### Changes:
 
-- **Functionality Improvements**
-  - Changed the display of the budget from the command "read" to display a remaining budget instead.
+- **Data storage improvements**
+  - Changed the saved data format from csv to json.
+  - Saved files (namely budget.txt and data.json) now create inside ~/Documents/Expense Tracker
   
-- **Usability Enhancements**
-  - Increased verbosity of log messages to improve debugging and user interaction.
-
-- **Bugfixes**
-  - Fixed several small bugs.
